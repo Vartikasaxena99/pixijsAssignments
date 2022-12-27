@@ -1,4 +1,6 @@
 import { Application, Sprite } from 'pixi.js';
+import PIXI from 'pixi.js';
+import { Sound } from '@pixi/sound';
 
 const gameDiv:HTMLDivElement = <HTMLDivElement>document.getElementById('game');
 
@@ -17,10 +19,10 @@ sprite.interactive=true;
 sprite.x=350;
 sprite.y=40;
 app.stage.addChild(sprite);
-const audio=new Audio();
-audio.src="m.mp3";
+const s=Sound.from('resources/m.mp3');
+
 sprite.on("click",()=>{
-    audio.play();
+    s.play();
     const sprite2=Sprite.from("./assets/on_toggle.png");
     sprite2.x=350;
     sprite2.y=50;
@@ -33,6 +35,7 @@ sprite.on("click",()=>{
     sprite.visible=false;
     sprite2.on("click",()=>
     {
+        s.pause();
         sprite2.visible=false;
         sprite.visible=true;
     })
