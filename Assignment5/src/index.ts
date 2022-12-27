@@ -1,13 +1,4 @@
 import { Application, Sprite } from 'pixi.js';
-// import { css } from './css/main.css';
-// import { Game } from './Game';
-//     const gameDiv:HTMLDivElement = <HTMLDivElement>document.getElementById('game');
-//     const app:Application = new Game({
-//         height:720,
-//         width:1480,
-//         backgroundColor: 0x996633,
-//     });
-//     gameDiv.appendChild(app.view);
 const gameDiv:HTMLDivElement = <HTMLDivElement>document.getElementById('game');
 const app=new Application({
      width:innerWidth,
@@ -15,12 +6,27 @@ const app=new Application({
 }
 );
 gameDiv.appendChild(app.view);
-const sprite=Sprite.from("./assets/Stop_Down.png");
+const sprite=Sprite.from("./assets/text.png");
+const spriteB=Sprite.from("./assets/icon.png");
+const spriteA=Sprite.from("./assets/anim.png");
 sprite.buttonMode=true;
 sprite.interactive=true;
-sprite.x=200;
-sprite.y=200;
+sprite.x=100;
+sprite.y=100;
+spriteB.x=500;
+spriteB.y=150;
+spriteA.x=800;
+spriteA.y=150;
 app.stage.addChild(sprite);
+app.stage.addChild(spriteB);
+app.stage.addChild(spriteA);
+app.ticker.add((delta) => {
+    // rotate the container!
+    // use delta to create frame-independent transform
+    spriteA.rotation -= 0.10 * delta;
+    
+});
+
 sprite.on("click",()=>{
     console.log("clicked");
     const sprite1=Sprite.from("./assets/bg.jpg");
