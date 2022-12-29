@@ -19,7 +19,7 @@ sprite.interactive=true;
 sprite.x=350;
 sprite.y=40;
 app.stage.addChild(sprite);
-const s=Sound.from('resources/m.mp3');
+const s=Sound.from('./assets/m.mp3');
 
 sprite.on("click",()=>{
     s.play();
