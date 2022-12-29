@@ -1,4 +1,4 @@
-import { Application, Sprite } from 'pixi.js';
+import { Application, Sprite,Graphics } from 'pixi.js';
 const gameDiv:HTMLDivElement = <HTMLDivElement>document.getElementById('game');
 const app=new Application({
      width:innerWidth,
@@ -20,6 +20,7 @@ spriteA.y=150;
 app.stage.addChild(sprite);
 app.stage.addChild(spriteB);
 app.stage.addChild(spriteA);
+
 app.ticker.add((delta) => {
     // rotate the container!
     // use delta to create frame-independent transform
