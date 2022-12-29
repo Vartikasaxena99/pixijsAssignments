@@ -8,24 +8,52 @@ const app=new Application({
 gameDiv.appendChild(app.view);
 const sprite=Sprite.from("./assets/text.png");
 const spriteB=Sprite.from("./assets/icon.png");
-const spriteA=Sprite.from("./assets/anim.png");
+
 sprite.buttonMode=true;
 sprite.interactive=true;
 sprite.x=100;
 sprite.y=100;
 spriteB.x=500;
 spriteB.y=150;
-spriteA.x=800;
-spriteA.y=150;
+
 app.stage.addChild(sprite);
 app.stage.addChild(spriteB);
-app.stage.addChild(spriteA);
 
-app.ticker.add((delta) => {
-    // rotate the container!
-    // use delta to create frame-independent transform
-    spriteA.rotation -= 0.10 * delta;
-    
+const graphics=new Graphics();
+const thing = new Graphics();
+app.stage.addChild(thing);
+thing.x = 950;
+thing.y = 250;
+
+let count = 0;
+
+// Just click on the stage to draw random lines
+
+app.stage.on('pointerdown', () => {
+    graphics.lineStyle(Math.random() * 30, Math.random() * 0xFFFFFF, 1);
+    graphics.moveTo(Math.random() * 800, Math.random() * 600);
+    graphics.bezierCurveTo(
+        Math.random() * 800, Math.random() * 600,
+        Math.random() * 800, Math.random() * 600,
+        Math.random() * 800, Math.random() * 600,
+    );
+});
+
+app.ticker.add(() => {
+    count += 0.1;
+
+    thing.clear();
+    thing.lineStyle(10, 0xff0000, 1);
+    thing.beginFill(0xffFF00, 0.5);
+
+    thing.moveTo(-120 + Math.sin(count) * 20, -100 + Math.cos(count) * 20);
+    thing.lineTo(120 + Math.cos(count) * 20, -100 + Math.sin(count) * 20);
+    thing.lineTo(120 + Math.sin(count) * 20, 100 + Math.cos(count) * 20);
+    thing.lineTo(-120 + Math.cos(count) * 20, 100 + Math.sin(count) * 20);
+    thing.lineTo(-120 + Math.sin(count) * 20, -100 + Math.cos(count) * 20);
+    thing.closePath();
+
+    thing.rotation = count * 0.1;
 });
 
 sprite.on("click",()=>{
